@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Vietnam 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+/* ── Design tokens ─────────────────────────────── */
+:root {
+  --bg:          #faf8f4;
+  --surface:     #ffffff;
+  --surface2:    #f5f1eb;
+  --ink:         #1a1410;
+  --ink2:        #4a3f35;
+  --muted:       #8a7c70;
+  --accent:      #c4763a;
+  --accent2:     #9b5a26;
+  --gold:        #d4a853;
+  --gold-light:  #f0deb0;
+  --teal:        #3a7c82;
+  --border:      #e8e0d4;
+  --border2:     #d4c9b8;
+  --chip-bg:     #fdf4e8;
+  --chip-border: #e8c98a;
+  --chip-text:   #7a5a28;
+  --today-bg:    #fff3cd;
+  --today-text:  #7a4a10;
+  --shadow-sm:   0 2px 8px rgba(60,40,20,.08);
+  --shadow-md:   0 8px 32px rgba(60,40,20,.12);
+  --shadow-lg:   0 20px 60px rgba(60,40,20,.16);
+  --r:           16px;
+  --r-sm:        10px;
+  --font-serif:  'Cormorant Garamond', Georgia, serif;
+  --font-sans:   'DM Sans', system-ui, sans-serif;
+  --font-mono:   'DM Mono', 'Courier New', monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:          #100e0b;
+    --surface:     #1c1710;
+    --surface2:    #251e14;
+    --ink:         #f5efe6;
+    --ink2:        #c8b89e;
+    --muted:       #7a6a58;
+    --accent:      #d4885a;
+    --accent2:     #e8a070;
+    --gold:        #c4943a;
+    --gold-light:  #3a2e18;
+    --teal:        #5aaab0;
+    --border:      #2e271c;
+    --border2:     #3d3224;
+    --chip-bg:     #2a2010;
+    --chip-border: #5a4020;
+    --chip-text:   #d4a853;
+    --today-bg:    #2a1e08;
+    --today-text:  #e8b860;
+    --shadow-sm:   0 2px 8px rgba(0,0,0,.3);
+    --shadow-md:   0 8px 32px rgba(0,0,0,.4);
+    --shadow-lg:   0 20px 60px rgba(0,0,0,.5);
+  }
+}
+
+/* ── Reset / Base ──────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent2); }
+button, input, select { font: inherit; }
+
+/* ── Hero banner ───────────────────────────────── */
+.hero {
+  position: relative;
+  background: linear-gradient(145deg, #1a1208 0%, #2e1f0c 40%, #1c2218 100%);
+  overflow: hidden;
+  padding: 56px 24px 48px;
+  text-align: center;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(196,118,58,.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(58,124,130,.14) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, rgba(212,168,83,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,168,83,.4), transparent);
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: .8;
+  margin: 0 0 16px;
+}
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(44px, 10vw, 80px);
+  font-weight: 300;
+  color: #f5efe6;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+.hero-sub {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: rgba(245,239,230,.55);
+  margin: 14px 0 0;
+  font-weight: 300;
+  letter-spacing: .3px;
+}
+.hero-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(212,168,83,.3);
+  background: rgba(212,168,83,.07);
+  font-size: 12px;
+  color: rgba(245,239,230,.7);
+  font-family: var(--font-mono);
+  letter-spacing: .5px;
+}
+.hero-pill svg { width: 14px; height: 14px; fill: var(--gold); opacity: .7; flex-shrink: 0; }
+
+/* ── Sticky navbar ─────────────────────────────── */
+.navbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250,248,244,.88);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--border);
+  padding: 0 16px;
+}
+@media (prefers-color-scheme: dark) {
+  .navbar { background: rgba(16,14,11,.88); }
+}
+.navbar-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.nav-brand {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: .3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nav-brand span { color: var(--accent); font-style: italic; }
+.nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.lang-toggle {
+  display: flex;
+  border: 1px solid var(--border2);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--surface2);
+}
+.lang-toggle button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 6px 13px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .8px;
+  cursor: pointer;
+  transition: all .2s;
+  font-family: var(--font-mono);
+}
+.lang-toggle button.active {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 999px;
+}
+.icon-btn {
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  cursor: pointer;
+  color: var(--ink2);
+  transition: all .2s;
+  box-shadow: var(--shadow-sm);
+}
+.icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+.icon-btn svg { width: 16px; height: 16px; fill: currentColor; }
+#todayBadgeWrap { display: flex; align-items: center; }
+
+/* ── Layout ────────────────────────────────────── */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+/* ── Section chrome ────────────────────────────── */
+.section {
+  margin-top: 36px;
+  animation: fadeUp .5s ease both;
+}
+.section:nth-child(1) { animation-delay: .05s; }
+.section:nth-child(2) { animation-delay: .10s; }
+.section:nth-child(3) { animation-delay: .15s; }
+.section:nth-child(4) { animation-delay: .20s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 0 2px;
+}
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -.3px;
+}
+.section-title em { color: var(--accent); font-style: italic; }
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--border2), transparent);
+  margin-bottom: 20px;
+}
+
+/* ── Quick access panel ────────────────────────── */
+.quick-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.quick-select-wrap { flex: 1; min-width: 220px; }
+.quick-select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--ink);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%238a7c70' d='M12 16a1 1 0 0 1-.707-.293l-6-6a1 1 0 0 1 1.414-1.414L12 13.586l5.293-5.293a1 1 0 1 1 1.414 1.414l-6 6A1 1 0 0 1 12 16z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 36px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.quick-select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(196,118,58,.15); }
+.quick-hint {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+/* ── Hotel grid ────────────────────────────────── */
+.hotels-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 560px) { .hotels-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 800px) { .hotels-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+.hotel-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+.hotel-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.hotel-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+}
+.hotel-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hotel-city {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+.hotel-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink2);
+  margin: 0 0 10px;
+  line-height: 1.4;
+}
+.hotel-name a {
+  color: var(--ink2);
+  border-bottom: 1px dashed var(--accent);
+  transition: color .2s;
+}
+.hotel-name a:hover { color: var(--accent); }
+.hotel-nights {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.hotel-nights svg { width: 11px; height: 11px; fill: var(--gold); flex-shrink: 0; }
+
+/* ── Brief table ───────────────────────────────── */
+.brief-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+@media (min-width: 560px) { .brief-grid { grid-template-columns: 1fr 1fr; } }
+
+.brief-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  transition: border-color .2s;
+}
+.brief-card:hover { border-color: var(--border2); }
+.brief-day-num {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  min-width: 36px;
+  padding-top: 2px;
+}
+.brief-body { flex: 1; min-width: 0; }
+.brief-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: .5px;
+  margin-bottom: 5px;
+}
+.brief-route {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+.brief-activity {
+  font-size: 12px;
+  color: var(--ink2);
+  line-height: 1.4;
+}
+
+/* ── Day cards ─────────────────────────────────── */
+.days-list { display: flex; flex-direction: column; gap: 10px; }
+
+.day-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow .2s, border-color .2s;
+}
+.day-card:hover { border-color: var(--border2); }
+.day-card.open { box-shadow: var(--shadow-md); }
+.day-card.today-card {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(212,168,83,.25), var(--shadow-md);
+}
+
+.day-header {
+  padding: 16px 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  background: linear-gradient(90deg, rgba(196,118,58,.05) 0%, transparent 60%);
+  transition: background .2s;
+}
+.day-header:hover { background: linear-gradient(90deg, rgba(196,118,58,.09) 0%, transparent 60%); }
+.day-header:active { opacity: .9; }
+
+.day-left { flex: 1; min-width: 0; }
+.day-num-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+.day-num {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  font-style: italic;
+}
+.day-date-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .5px;
+  color: var(--muted);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.today-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .5px;
+  background: var(--today-bg);
+  color: var(--today-text);
+  border: 1px solid rgba(212,168,83,.35);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+  display: none;
+}
+.today-badge.visible { display: inline-flex; }
+.day-destination {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 8px;
+  line-height: 1.25;
+  letter-spacing: -.1px;
+}
+.day-route-badge {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--ink2);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  border-radius: 999px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.day-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  border: 1px solid var(--chip-border);
+  letter-spacing: .3px;
+}
+.chip svg { width: 11px; height: 11px; fill: currentColor; flex-shrink: 0; }
+
+.day-chevron {
+  width: 32px; height: 32px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  transition: background .2s, border-color .2s;
+  margin-top: 4px;
+}
+.day-card.open .day-chevron { background: var(--accent); border-color: var(--accent); }
+.day-chevron svg {
+  width: 16px; height: 16px; fill: currentColor;
+  transition: transform .25s ease, color .2s;
+}
+.day-card.open .day-chevron svg { transform: rotate(180deg); }
+.day-card.open .day-chevron { color: #fff; }
+
+.day-body {
+  display: none;
+  padding: 0 18px 18px;
+  border-top: 1px solid var(--border);
+}
+.day-card.open .day-body { display: block; }
+
+.detail-block {
+  margin-top: 14px;
+}
+.detail-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.detail-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.detail-label svg { width: 12px; height: 12px; fill: var(--accent); flex-shrink: 0; }
+.detail-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink2);
+  white-space: pre-wrap;
+  font-family: var(--font-sans);
+  font-weight: 300;
+}
+
+/* ── Badges ────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  background: var(--surface2);
+}
+.badge.today-active {
+  background: var(--today-bg);
+  color: var(--today-text);
+  border-color: rgba(212,168,83,.4);
+  font-weight: 600;
+}
+
+/* ── Search modal ──────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  display: none;
+  background: rgba(10,8,5,.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 16px;
+  align-items: flex-start;
+  justify-content: center;
+}
+.modal-overlay.open { display: flex; animation: fadeIn .2s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 600px;
+  margin-top: 40px;
+  overflow: hidden;
+  animation: slideDown .25s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-head-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.modal-close {
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--ink2);
+  border-radius: var(--r-sm);
+  padding: 6px 12px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all .2s;
+}
+.modal-close:hover { border-color: var(--accent); color: var(--accent); }
+.search-input-wrap {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.search-input {
+  width: 100%;
+  padding: 11px 14px 11px 40px;
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--ink);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%238a7c70' d='M10 2a8 8 0 105.293 14.293l4.207 4.207a1 1 0 001.414-1.414l-4.207-4.207A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  background-size: 16px;
+}
+.search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(196,118,58,.15); }
+.search-hint-text {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  margin-top: 6px;
+}
+.search-results { padding: 12px 18px 18px; max-height: 380px; overflow-y: auto; }
+.search-result-item {
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  background: var(--surface2);
+  transition: border-color .2s;
+}
+.search-result-item:hover { border-color: var(--accent); }
+.search-result-day { font-weight: 600; font-size: 13px; color: var(--ink); margin-bottom: 4px; }
+.search-result-snippet { font-size: 12px; color: var(--muted); white-space: pre-wrap; line-height: 1.5; margin-bottom: 8px; }
+.search-result-link {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.search-result-link::after { content: '→'; }
+.search-empty { font-size: 13px; color: var(--muted); font-family: var(--font-mono); padding: 8px 2px; }
+.modal-footer-note {
+  padding: 10px 18px 14px;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  border-top: 1px solid var(--border);
+}
+
+/* ── Progress bar (trip days) ──────────────────── */
+.trip-progress {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+}
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+.progress-label { font-size: 13px; font-weight: 500; color: var(--ink2); }
+.progress-count { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.progress-track {
+  height: 5px;
+  background: var(--surface2);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  border-radius: 999px;
+  transition: width 1s cubic-bezier(.16,1,.3,1);
+}
+.progress-dots {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.progress-dot { font-family: var(--font-mono); font-size: 9px; color: var(--muted); }
+
+/* ── Responsive tweaks ─────────────────────────── */
+@media (max-width: 480px) {
+  .hero { padding: 40px 16px 36px; }
+  .hero-meta { gap: 8px; }
+  .day-destination { font-size: 16px; }
+  .section-title { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <p class="hero-eyebrow">Private Travel Itinerary</p>
+  <h1 class="hero-title"><em>Vietnam</em> 2026</h1>
+  <p class="hero-sub" data-i18n="subtitle"></p>
+  <div class="hero-meta">
+    <div class="hero-pill">
+      <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 14.5 9 2.5 2.5 0 0 1 12 11.5z"/></svg>
+      7 Destinations
+    </div>
+    <div class="hero-pill">
+      <svg viewBox="0 0 24 24"><path d="M19 3h-1V2a1 1 0 0 0-2 0v1H8V2a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3zm1 17a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9h16z"/></svg>
+      14 Days · Apr 1–14
+    </div>
+    <div class="hero-pill">
+      <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 1 0 11 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5z"/></svg>
+      5 Flights
+    </div>
+  </div>
+</div>
+
+<!-- Sticky navbar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="nav-brand">Vietnam <span>2026</span></div>
+    <div class="nav-actions">
+      <div id="todayBadgeWrap"></div>
+      <div class="lang-toggle" role="tablist">
+        <button id="btnEN" class="active" role="tab" aria-selected="true" onclick="setLang('en')">EN</button>
+        <button id="btnVI" role="tab" aria-selected="false" onclick="setLang('vi')">VN</button>
+      </div>
+      <button class="icon-btn" aria-label="Search" onclick="openSearch()">
+        <svg viewBox="0 0 24 24"><path d="M10 2a8 8 0 105.293 14.293l4.207 4.207a1 1 0 001.414-1.414l-4.207-4.207A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Main content -->
+<div class="container">
+
+  <!-- Quick access + progress -->
+  <div class="section" id="quick">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="quickAccess"></h2>
+      <span class="section-label" data-i18n="offlineNoteShort">Offline-ready</span>
+    </div>
+    <div class="divider"></div>
+    <div class="quick-card">
+      <div class="quick-select-wrap">
+        <select class="quick-select" id="jumpSelect" onchange="jumpToDay(this.value)">
+          <option value="" data-i18n="jumpPlaceholder"></option>
+        </select>
+      </div>
+      <p class="quick-hint" data-i18n="offlineNote"></p>
+    </div>
+    <div id="tripProgressWrap" style="margin-top:12px;display:none"></div>
+  </div>
+
+  <!-- Hotels -->
+  <div class="section" id="hotels">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="hotelsTitle"></h2>
+      <span class="section-label" data-i18n="fromSource"></span>
+    </div>
+    <div class="divider"></div>
+    <div class="hotels-grid" id="hotelsList"></div>
+  </div>
+
+  <!-- Brief itinerary -->
+  <div class="section" id="brief">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="briefTitle"></h2>
+      <span class="section-label" data-i18n="fromSource"></span>
+    </div>
+    <div class="divider"></div>
+    <div class="brief-grid" id="briefList"></div>
+  </div>
+
+  <!-- Day by day -->
+  <div class="section" id="days">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="daysTitle"></h2>
+      <span class="section-label" data-i18n="tapToExpand"></span>
+    </div>
+    <div class="divider"></div>
+    <div class="days-list" id="dayCards"></div>
+  </div>
+
+</div>
+
+<!-- Search Modal -->
+<div class="modal-overlay" id="searchModal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-head-title" data-i18n="searchTitle"></div>
+      <button class="modal-close" onclick="closeSearch()" data-i18n="close"></button>
+    </div>
+    <div class="search-input-wrap">
+      <input class="search-input" id="searchInput" type="search" inputmode="search" autocomplete="off" placeholder="Search…" />
+      <p class="search-hint-text" data-i18n="searchHint"></p>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+    <div class="modal-footer-note" data-i18n="searchFooter"></div>
+  </div>
+</div>
+
+<script>
+/* ─── DATA ───────────────────────────────────────── */
+const tripData = {
+  meta: {
+    title:       { en: "Vietnam 2026", vi: "Vietnam 2026" },
+    subtitle:    { en: "Travel dates: 01 April – 14 April 2026", vi: "Ngày đi: 01 Tháng 4 – 14 Tháng 4 2026" },
+    dateRangeISO:{ start: "2026-04-01", end: "2026-04-14" }
+  },
+  hotels: [
+    { city:{en:"Ho Chi Minh",vi:"Thành phố Hồ Chí Minh"}, hotel:{en:"MAI HOUSE SAIGON",vi:"MAI HOUSE SAIGON"}, url:"https://maihouse.com.vn/", nights:{en:"2",vi:"2"} },
+    { city:{en:"Hoi An",vi:"Hội An"}, hotel:{en:"LITTLE RIVERSIDE — A LITTLE LUXURY HOTEL & SPA",vi:"LITTLE RIVERSIDE — A LITTLE LUXURY HOTEL & SPA"}, url:"https://www.littlehoiangroup.com/little-riverside-hoi-an", nights:{en:"2",vi:"2"} },
+    { city:{en:"Hue",vi:"Huế"}, hotel:{en:"PILGRIMAGE VILLAGE — BOUTIQUE RESORT & SPA",vi:"PILGRIMAGE VILLAGE — BOUTIQUE RESORT & SPA"}, url:"http://www.pilgrimagevillage.com/", nights:{en:"2",vi:"2"} },
+    { city:{en:"Ha Noi",vi:"Hà Nội"}, hotel:{en:"MELIA HANOI HOTEL",vi:"MELIA HANOI HOTEL"}, url:"https://www.melia.com/vi/hotels/vietnam/hanoi/melia-hanoi/index.htm", nights:{en:"2",vi:"2"} },
+    { city:{en:"Ha Long",vi:"Hạ Long"}, hotel:{en:"INDOCHINE CRUISE LAN HA BAY (45 CABINS)",vi:"INDOCHINE CRUISE LAN HA BAY (45 CABINS)"}, url:"https://www.indochinasails.com/en/indochine-lan-ha.html", nights:{en:"1",vi:"1"} },
+    { city:{en:"Nha Trang",vi:"Nha Trang"}, hotel:{en:"THE ANAM CAM RANH",vi:"THE ANAM CAM RANH"}, url:"https://www.theanam.com/the-anam-cam-ranh", nights:{en:"3",vi:"3"} },
+    { city:{en:"Ho Chi Minh",vi:"Thành phố Hồ Chí Minh"}, hotel:{en:"MAI HOUSE SAIGON",vi:"MAI HOUSE SAIGON"}, url:"https://maihouse.com.vn/", nights:{en:"1",vi:"1"} }
+  ],
+  brief: [
+    { day:"1",  date:{en:"Apr 01, 2026",vi:"01-Th04-26"}, route:{en:"Ho Chi Minh City",vi:"TP.HCM"}, activity:{en:"Arrival @13:05 – Flight #VN600",vi:"Đến lúc 13:05 – Chuyến bay #VN600"} },
+    { day:"2",  date:{en:"Apr 02, 2026",vi:"02-Th04-26"}, route:{en:"HCMC",vi:"TP.HCM"}, activity:{en:"Free day",vi:"Ngày tự do"} },
+    { day:"3",  date:{en:"Apr 03, 2026",vi:"03-Th04-26"}, route:{en:"HCMC → Da Nang → Hoi An",vi:"TP.HCM → Đà Nẵng → Hội An"}, activity:{en:"Fly to Da Nang #VN118 (09:05–10:25) · Hoi An Ancient Town & countryside",vi:"Bay đến Đà Nẵng #VN118 (09:05–10:25) · Phố cổ Hội An"} },
+    { day:"4",  date:{en:"Apr 04, 2026",vi:"04-Th04-26"}, route:{en:"Hoi An",vi:"Hội An"}, activity:{en:"Tra Que herb garden",vi:"Làng rau Trà Quế"} },
+    { day:"5",  date:{en:"Apr 05, 2026",vi:"05-Th04-26"}, route:{en:"Hoi An → Da Nang → Hue",vi:"Hội An → Đà Nẵng → Huế"}, activity:{en:"Marble Mountain · Son Tra Peninsula",vi:"Ngũ Hành Sơn · Bán đảo Sơn Trà"} },
+    { day:"6",  date:{en:"Apr 06, 2026",vi:"06-Th04-26"}, route:{en:"Hue",vi:"Huế"}, activity:{en:"City highlights",vi:"Điểm nổi bật của thành phố"} },
+    { day:"7",  date:{en:"Apr 07, 2026",vi:"07-Th04-26"}, route:{en:"Hue → Ha Noi",vi:"Huế → Hà Nội"}, activity:{en:"Fly to Ha Noi #VN1540 (07:35–08:55) · City highlights & street food",vi:"Bay đến Hà Nội #VN1540 (07:35–08:55) · Điểm nổi bật & ẩm thực đường phố"} },
+    { day:"8",  date:{en:"Apr 08, 2026",vi:"08-Th04-26"}, route:{en:"Ha Noi → Ninh Binh",vi:"Hà Nội → Ninh Bình"}, activity:{en:"Ninh Binh excursion",vi:"Tham quan Ninh Bình"} },
+    { day:"9",  date:{en:"Apr 09, 2026",vi:"09-Th04-26"}, route:{en:"Ha Noi → Ha Long Bay",vi:"Hà Nội → Vịnh Hạ Long"}, activity:{en:"Ha Long Bay · Overnight cruise",vi:"Vịnh Hạ Long · Nghỉ đêm trên du thuyền"} },
+    { day:"10", date:{en:"Apr 10, 2026",vi:"10-Th04-26"}, route:{en:"Ha Long Bay → Ha Noi → Nha Trang",vi:"Vịnh Hạ Long → Hà Nội → Nha Trang"}, activity:{en:"Fly to Nha Trang #VN1563 (16:30–18:30)",vi:"Bay đến Nha Trang #VN1563 (16:30–18:30)"} },
+    { day:"11", date:{en:"Apr 11, 2026",vi:"11-Th04-26"}, route:{en:"Nha Trang",vi:"Nha Trang"}, activity:{en:"Islands tour",vi:"Tour tham quan các đảo"} },
+    { day:"12", date:{en:"Apr 12, 2026",vi:"12-Th04-26"}, route:{en:"Nha Trang",vi:"Nha Trang"}, activity:{en:"Free day",vi:"Ngày tự do"} },
+    { day:"13", date:{en:"Apr 13, 2026",vi:"13-Th04-26"}, route:{en:"Nha Trang → HCMC",vi:"Nha Trang → TP.HCM"}, activity:{en:"Fly to HCMC #VN1345 (14:40–15:45)",vi:"Bay đến TP.HCM #VN1345 (14:40–15:45)"} },
+    { day:"14", date:{en:"Apr 14, 2026",vi:"14-Th04-26"}, route:{en:"HCMC",vi:"TP.HCM"}, activity:{en:"Departure @08:45 – Flight #VN601",vi:"Khởi hành lúc 08:45 – Chuyến bay #VN601"} }
+  ],
+  days: [
+    {
+      id:"day1", day:"1", iso:"2026-04-01",
+      destination:{en:"Ho Chi Minh City — Arrival",vi:"Thành phố Hồ Chí Minh — Đến nơi"},
+      details:{
+        en:`Upon arrival at Tan Son Nhat International Airport @13:05 #VN600, after you finish all customs and immigration procedures, please head to the exit gate, column 12 and look for your driver who will be waiting for you, holding a welcome signboard with your name on it. Then, you will be transferred to your hotel in town by a private vehicle.\nOvernight in HCMC.`,
+        vi:`Khi đến Sân bay Quốc tế Tân Sơn Nhất lúc 13:05 chuyến bay #VN600, sau khi hoàn tất thủ tục hải quan và xuất nhập cảnh, vui lòng đi ra cổng ra, cột số 12 và tìm tài xế của bạn đang chờ với biển đón có tên của bạn. Sau đó, bạn sẽ được đưa đến khách sạn trong thành phố bằng xe riêng.\nNghỉ đêm tại TP.HCM.`
+      },
+      transfer:{en:`Tan Son Nhat International Airport @13:05 #VN600\nGo to exit gate, column 12`,vi:`Sân bay Quốc tế Tân Sơn Nhất lúc 13:05 #VN600\nĐi đến cổng ra, cột số 12`}
+    },
+    {
+      id:"day2", day:"2", iso:"2026-04-02",
+      destination:{en:"HCMC — Free Day",vi:"TP.HCM — Ngày tự do"},
+      details:{en:`Free day at leisure. Overnight in HCMC.`,vi:`Ngày tự do nghỉ ngơi. Nghỉ đêm tại TP.HCM.`},
+      transfer:{en:`(missing in PDF)`,vi:`(missing in PDF)`}
+    },
+    {
+      id:"day3", day:"3", iso:"2026-04-03",
+      destination:{en:"HCMC — Fly to Da Nang — Hoi An Ancient Town & Countryside",vi:"TP.HCM — Bay đến Đà Nẵng — Phố cổ Hội An & Vùng nông thôn"},
+      details:{
+        en:`Pick up at 7:00\nEarly transfer to the airport to take the morning flight to Da Nang #VN118 (9:05–10:25). Upon arrival at the airport, you will be welcomed by your driver and transfer to Hoi An.\nDrive to Cam Thanh coconut palm village at the countryside of Hoi An, passing by rice paddies and vegetable farms. Along the way, you might see cows or buffalos working on rice fields with farmers or lazy relaxing under the shade. Then, learn the art of paddling the unique Vietnamese round basket boat and journey through the tranquil coconut-palm flanked waterways while hearing about how the area was important during the war.\nEnjoy a guided walking tour around Hoi An Ancient Town, which is recognized for its well-preserved architecture, pedestrian-only streets, and typical local cuisine. During this leisurely exploration on foot, observe some of the historic merchant and community houses, ancient pagodas, and traditional places of worship with influences from Chinese, Japanese and Vietnamese architecture. Make a stop at the iconic over 400-year-old Japanese Covered Bridge first built by the Japanese community in 1590s as a way to reach the Chinese quarter across the water. Visit Tan Ky House, a late 18th-century merchant's residence. Visit the Assembly Hall of the Chaozhou Chinese Congregation, notice its gorgeous woodcarvings on the beams, walls, and altar while unraveling with your guide some untold stories about the Chinese community. During the walk, indulge yourself in Hoi An's food safari by alternate sampling some of the city's best cuisine during the walk. White rose cake, bread, banana sweet soup, and coconut pancakes are among the foods you will sample.\nStep into a back alley to visit an elderly man who has a passion for Vietnamese calligraphy. Have some tea and a chat with him to learn that calligraphy is more than just a way to convey information; it can also be used to convey one's innermost thoughts and feelings. See the master at work as he creates a lucky character in calligraphy for you to take home with you as a souvenir.\nOvernight in Hoi An.`,
+        vi:`Đón lúc 7:00\nĐi sớm ra sân bay để lên chuyến bay sáng đến Đà Nẵng #VN118 (9:05–10:25). Khi đến sân bay, bạn sẽ được tài xế đón và đưa đến Hội An.\nLái xe đến làng dừa Cẩm Thanh ở vùng nông thôn Hội An, đi qua những cánh đồng lúa và vườn rau. Trên đường đi, bạn có thể thấy bò hoặc trâu đang làm việc trên ruộng với nông dân hoặc đang nghỉ ngơi dưới bóng râm. Sau đó, học nghệ thuật chèo thuyền thúng độc đáo của Việt Nam và hành trình qua những con đường thủy yên tĩnh được bao phủ bởi rừng dừa trong khi nghe về tầm quan trọng của khu vực trong thời chiến.\nTham quan Phố cổ Hội An với hướng dẫn viên, nơi được công nhận vì kiến trúc được bảo tồn tốt, đường phố dành cho người đi bộ và ẩm thực địa phương đặc trưng. Nghỉ đêm tại Hội An.`
+      },
+      transfer:{en:`Pick up at 7:00`,vi:`Đón lúc 7:00`}
+    },
+    {
+      id:"day4", day:"4", iso:"2026-04-04",
+      destination:{en:"Hoi An — Tra Que Herb Garden",vi:"Hội An — Làng rau Trà Quế"},
+      details:{
+        en:`Pick up at 8:30\nHoi An is surrounded by attractive countryside where you can observe the traditional way of agricultural life. Today, set off for a half-day excursion exploring the organic farming activities of the local farmer in Hoi An's outskirts. Drive to the Tra Que village where the local farmers work on the organic fields using traditional methods that date back hundreds of years. Take a short stroll around the vegetable garden and meet the local farmer to get a glimpse of the traditional methods of chemical-free farming and its positive effects on the environment. The local farmer will explain to you how to prepare the land and fertilize it with seaweed from the local lake. The rich soil from this village produces some of the most flavorsome vegetables and herbs in all of Hoi An. You may like to borrow the farmers' clothing provided by the villagers and learn how to cultivate vegetables without chemicals before harvesting vegetables for your cooking demonstrations. Follow the guidance of the local chef who will teach you the traditional methods of preparing some local dishes of Central Vietnam such as tam huu (spring roll), Banh xeo (Vietnam local pancake), then savor what you have helped prepare.\nRelax and soak your feet with a mix of local herbal remedies in order to reduce your aches and pains. After the food massage, bid farewell to the host and return to downtown Hoi An. Spend the afternoon at leisure.\nOvernight in Hoi An.`,
+        vi:`Đón lúc 8:30\nHội An được bao quanh bởi vùng nông thôn hấp dẫn. Hôm nay, khởi hành cho nửa ngày tham quan khám phá các hoạt động canh tác hữu cơ của nông dân địa phương ở ngoại ô Hội An. Lái xe đến làng Trà Quế, nơi nông dân địa phương làm việc trên các cánh đồng hữu cơ sử dụng phương pháp truyền thống có từ hàng trăm năm trước. Nghỉ đêm tại Hội An.`
+      },
+      transfer:{en:`Pick up at 8:30`,vi:`Đón lúc 8:30`}
+    },
+    {
+      id:"day5", day:"5", iso:"2026-04-05",
+      destination:{en:"Hoi An — Marble Mountain — Son Tra Peninsula — Hue",vi:"Hội An — Ngũ Hành Sơn — Bán đảo Sơn Trà — Huế"},
+      details:{
+        en:`Pick up at 9:00\nTransfer to Hue passing by Da Nang. Stop at Marble Mountain to explore the caves and temples built right into the mountain and observe spectacular views of the expanding city of Da Nang and the famous Da Nang Beach. Then, drive along the coastline to Son Tra Peninsula. The Mountain can be seen throughout the city, a beautiful contour of greenery marking the horizon, complete with a white statue at its peak. Stop at several points to admire the views. Monkeys may be spotted as we drive around, whilst taking in sweeping views along the coastal road. Visit Linh Ung pagoda which features the Giant statue of the Goddess of Mercy.\nContinue to Hue. Overnight in Hue.`,
+        vi:`Đón lúc 9:00\nDi chuyển đến Huế đi qua Đà Nẵng. Dừng chân tại Ngũ Hành Sơn để khám phá các hang động và đền chùa. Tham quan chùa Linh Ứng với bức tượng Phật Bà Quan Âm khổng lồ. Nghỉ đêm tại Huế.`
+      },
+      transfer:{en:`Pick up at 9:00`,vi:`Đón lúc 9:00`}
+    },
+    {
+      id:"day6", day:"6", iso:"2026-04-06",
+      destination:{en:"Hue — City Highlights",vi:"Huế — Điểm nổi bật của thành phố"},
+      details:{
+        en:`Pick up at 8:30\nHue, the former Imperial capital, is a tranquil and peaceful city with the magnificent architecture of its citadel, palaces, royal tombs, garden houses, pagodas and temples, built under the Nguyen dynasty on the banks of the Perfume River.\n\nThis morning, set off for a leisure boat trip floating on the Perfume River that flows through the charming Hue city. Disembark your boat and visit Thien Mu pagoda, one of the oldest ancient architectural structures for religious worship in Hue. Built in 1601, the seven-storied tower pagoda perched on top of on a hill overlooking the Perfume River is one of Vietnam's most recognizable icons. Step into the serene beauty of Thieu Tri Tomb, a secluded retreat just outside Hue where history and nature coexist in harmony. This imperial resting place of the Nguyen dynasty's third emperor is a hidden gem that provides a peaceful getaway from the bustling city. Wander along stone pathways lined with statues of mandarins and soldiers while your guide tells you fascinating stories about Vietnam's imperial heritage. After exploring the tomb, drive back to downtown Hue with a stop en route at a family-run workshop to learn how incense stick is made.\nThis afternoon, visit the Imperial Citadel at the centre of the Complex of Hue Monuments inscribed by UNESCO as a World Heritage site.\nOvernight in Hue.`,
+        vi:`Đón lúc 8:30\nHuế, kinh đô cũ của triều đại, là một thành phố yên tĩnh và thanh bình. Tham quan chùa Thiên Mụ và Lăng Thiệu Trị. Chiều tham quan Hoàng thành, Di sản Thế giới UNESCO. Nghỉ đêm tại Huế.`
+      },
+      transfer:{en:`Pick up at 8:30`,vi:`Đón lúc 8:30`}
+    },
+    {
+      id:"day7", day:"7", iso:"2026-04-07",
+      destination:{en:"Hue — Fly to Ha Noi — City Highlights & Street Food",vi:"Huế — Bay đến Hà Nội — Điểm nổi bật & Ẩm thực đường phố"},
+      details:{
+        en:`Pick up at 5:30\nEarly transfer to the airport to take the morning flight to Ha Noi #VN1540 (7:35–8:55). Upon arrival at the airport, welcomed by your guide and transfer to city centre.\nContinue to discover the capital of the country. Visit the complex dedicated to Ho Chi Minh, the nation's founder. Make the first stop at the historic Ho Chi Minh's Mausoleum. Continue walking through the beautiful botanical garden of the Presidential Palace to visit Uncle Ho's humble house. Tour the One Pillar Pagoda, built in 1049 of wood on a single stone pillar, designed to resemble a lotus blossom. Continue to the Tran Quoc pagoda, Hanoi's oldest pagoda, located on a small island of West Lake.\nThis afternoon, visit the Temple of Literature, the first university of Vietnam. Then, discover the vibrant heart of Hanoi aboard a traditional cyclo. End up today at the Train Street, where you sit on very small chairs and have a cup of egg coffee. If you are lucky, you can watch the train passing by right close to your seat (subject to timing and train schedule).\nOvernight in Ha Noi.`,
+        vi:`Đón lúc 5:30\nBay đến Hà Nội #VN1540 (7:35–8:55). Tham quan Lăng Bác, Chùa Một Cột, Chùa Trấn Quốc, Văn Miếu. Đi xích lô và thưởng thức cà phê trứng ở Phố Tàu. Nghỉ đêm tại Hà Nội.`
+      },
+      transfer:{en:`Pick up at 5:30`,vi:`Đón lúc 5:30`}
+    },
+    {
+      id:"day8", day:"8", iso:"2026-04-08",
+      destination:{en:"Ha Noi — Ninh Binh",vi:"Hà Nội — Ninh Bình"},
+      details:{
+        en:`Pick up at 8:00\nThis morning, enjoy a 2-hour drive from downtown Ha Noi to Ninh Binh province. It is a spectacular landscape of limestone karts peaks permeated with valleys, some of which are submerged, and surrounded by spectacular cliffs. Recognized as a UNESCO World Heritage Site in 2014, Ninh Binh is home to amazing karst mountains, misty caves, and historical relics.\nVisit the ancient capital of Hoa Lu to get an overview of the first three centralized feudal states of Vietnam. Continue your journey to Bich Dong, conferred by a King as "Vietnam's second most beautiful grotto".\nKnown as "Ha Long Bay on Land", Tam Coc was formed by the river of Ngo Dong flowing through a mountain. This afternoon, a local skilled rower will take you on a magnificent waterway lined with rice paddies.\nNotes: You need to walk up 150–250 steps to explore Bich Dong grotto and pagoda.\nReturn to Ha Noi late afternoon. Overnight in Ha Noi.`,
+        vi:`Đón lúc 8:00\nLái xe 2 giờ đến Ninh Bình. Tham quan cố đô Hoa Lư và hang Bích Động. Buổi chiều chèo thuyền Tam Cốc. Quay về Hà Nội cuối chiều. Nghỉ đêm tại Hà Nội.`
+      },
+      transfer:{en:`Pick up at 8:00`,vi:`Đón lúc 8:00`}
+    },
+    {
+      id:"day9", day:"9", iso:"2026-04-09",
+      destination:{en:"Ha Noi — Ha Long Bay — Overnight Cruise",vi:"Hà Nội — Vịnh Hạ Long — Nghỉ đêm trên du thuyền"},
+      details:{
+        en:`Pick up at 8:30\nThis morning, pick up at your hotel by private car without guide and depart for a 3-hour journey to Ha Long Bay. Declared a World Heritage Site by UNESCO in 1994, Ha Long Bay covers an area of 43,400 ha and includes over 1,600 islands and islets, most of which are uninhabited and untouched.\nHa Long (literally "where the dragon descends into the sea" in Vietnamese) is world-renowned for its spectacular seascape of limestone pillars complemented by its biodiversity.\nOn arrival at Tuan Chau Marina, settle in on board your boat where a welcome drink awaits. 13:15–14:00 After the welcome aboard, be served with lunch while cruising towards the bay.\n15:30 The crew take passengers visit the Dark and Bright (also known as Bat Cave) grotto. The best way to explore this cave is doing kayaking or bamboo sampan driven by local people through the tunnel.\n16:30 Return to cruise, enjoy swimming in the bay.\n17:45 Depart and cruise for about 30 minutes to anchor overnight.\n18:15 Attend the Fruit and Vegetable Carving Lesson led by our Head Chef.\n19:15 Dinner is served.\n20:30 Evening activities: board games, cards, or squid fishing on the boat with help from the crew.\nOvernight on board.`,
+        vi:`Đón lúc 8:30\nKhởi hành đến Vịnh Hạ Long. Lên tàu tại Bến tàu Tuần Châu, ăn trưa trên tàu. Tham quan hang Tối và Sáng, bơi lội, học tỉa trái cây và rau củ, ăn tối. Hoạt động buổi tối: trò chơi, câu mực. Nghỉ đêm trên tàu.`
+      },
+      transfer:{en:`Pick up at 8:30`,vi:`Đón lúc 8:30`}
+    },
+    {
+      id:"day10", day:"10", iso:"2026-04-10",
+      destination:{en:"Ha Long Bay — Ha Noi — Fly to Nha Trang",vi:"Vịnh Hạ Long — Hà Nội — Bay đến Nha Trang"},
+      details:{
+        en:`06:00 Continental breakfast: Coffee, tea and breakfast pastries served in the restaurant.\n06:30 Enjoy Tai Chi lesson on the sundeck (lasting for about 30 minutes).\n07:15 Cruise crew takes guests to visit Trung Trang Cave on Cat Ba Island.\n09:00 Upon returning to the boat, guests will have 30 minutes to freshen up and finish packing.\n09:30 Enjoy a Brunch in the restaurant.\nNote: The Itinerary is subject to change without prior notice in case of adverse weather alerts or any emergency situation. Use in-house English speaking tour guide on boat, no private tour guide escort.\nDrive back to Ha Noi. Transfer to airport to take the flight to Nha Trang #VN1563 (16:30–18:30).\nUpon arrival at the airport, welcomed by your driver and transfer to your hotel. Overnight in Nha Trang.`,
+        vi:`06:00 Bữa sáng, 06:30 Thái Cực Quyền trên boong tắm nắng, 07:15 Tham quan Hang Trung Trang. Lái xe về Hà Nội và bay đến Nha Trang #VN1563 (16:30–18:30). Nghỉ đêm tại Nha Trang.`
+      },
+      transfer:{en:`(missing in PDF)`,vi:`(missing in PDF)`}
+    },
+    {
+      id:"day11", day:"11", iso:"2026-04-11",
+      destination:{en:"Nha Trang — Islands Tour",vi:"Nha Trang — Tour các đảo"},
+      details:{
+        en:`Pick up at 9:00\nNha Trang is known for its fabulous year-round sunny weather, turquoise water, and a white sandy beach stretching the entire length of the city. Morning transfer to the pier for a relaxing cruise to Tam Island for swimming and snorkeling. Enjoy two fully supervised snorkeling in the crystal-clear waters of this protected maritime reserve known for its vivid coral and diverse marine life, including a large diversity of nudibranchs, shrimps, crabs, and cowries. Then visit Mieu Island to experience a typical basket boat ride and learn about fishermen's lives in Mieu Fishing Village. After a seafood lunch, unwind on the beach and return to your hotel.\nNotes: Tour duration: 4–5 hours (09:00–14:00).\nRest of the day at leisure. Overnight in Nha Trang.`,
+        vi:`Đón lúc 9:00\nDi chuyển đến bến tàu để đến Đảo Tằm. Lặn với ống thở, thăm Đảo Miếu, chèo thuyền thúng. Sau bữa trưa hải sản, thư giãn trên bãi biển. Nghỉ đêm tại Nha Trang.`
+      },
+      transfer:{en:`Pick up at 9:00`,vi:`Đón lúc 9:00`}
+    },
+    {
+      id:"day12", day:"12", iso:"2026-04-12",
+      destination:{en:"Nha Trang — Free Day",vi:"Nha Trang — Ngày tự do"},
+      details:{
+        en:`Enjoy a leisure day to relax, sunbath, read and enjoy a fresh cocktail. Overnight in Nha Trang.\nNote: Complimentary daily shuttle bus from resort to Nha Trang city centre and back available (as per resort's schedule).`,
+        vi:`Tận hưởng một ngày tự do để thư giãn, tắm nắng, đọc sách. Nghỉ đêm tại Nha Trang. Lưu ý: Xe buýt đưa đón miễn phí hàng ngày từ khu nghỉ dưỡng đến trung tâm thành phố Nha Trang.`
+      },
+      transfer:{en:`(missing in PDF)`,vi:`(missing in PDF)`}
+    },
+    {
+      id:"day13", day:"13", iso:"2026-04-13",
+      destination:{en:"Nha Trang — Fly to HCMC",vi:"Nha Trang — Bay đến TP.HCM"},
+      details:{
+        en:`Pick up at 12:45\nPrivate transfer to airport to take the flight back to HCMC #VN1345 (14:40–15:45). Upon arrival at the airport, please make your way to the Gate A2, you will be welcomed by your driver and transfer to your hotel. Overnight in HCMC.`,
+        vi:`Đón lúc 12:45\nDi chuyển riêng ra sân bay để lên chuyến bay về TP.HCM #VN1345 (14:40–15:45). Khi đến sân bay, đi đến Cổng A2. Nghỉ đêm tại TP.HCM.`
+      },
+      transfer:{en:`Pick up at 12:45`,vi:`Đón lúc 12:45`}
+    },
+    {
+      id:"day14", day:"14", iso:"2026-04-14",
+      destination:{en:"HCMC — Departure",vi:"TP.HCM — Khởi hành"},
+      details:{
+        en:`Pick up at 5:15\nYour driver will pick you up from your hotel to the airport for your departure flight @08:45 #VN601.`,
+        vi:`Đón lúc 5:15\nTài xế sẽ đón bạn từ khách sạn ra sân bay cho chuyến bay khởi hành lúc 08:45 #VN601.`
+      },
+      transfer:{en:`(missing in PDF)`,vi:`(missing in PDF)`}
+    }
+  ]
+};
+
+/* ─── i18n ───────────────────────────────────────── */
+const i18n = {
+  en:{
+    title: tripData.meta.title.en,
+    subtitle: tripData.meta.subtitle.en,
+    quickAccess:"Quick Access",
+    jumpPlaceholder:"Jump to Day…",
+    offlineNoteShort:"Offline-ready",
+    offlineNote:"No external dependencies — works offline.",
+    hotelsTitle:"Hotels",
+    briefTitle:"Brief Itinerary",
+    daysTitle:"Day by Day",
+    fromSource:"From source",
+    tapToExpand:"Tap to expand",
+    today:"Today",
+    searchTitle:"Search",
+    close:"Close",
+    searchHint:"Search across all itinerary text. Results jump to the exact day.",
+    searchFooter:"Tip: use short keywords like flight number (e.g. VN1563) or place names.",
+    missingInPDF:"(missing in PDF)",
+    notProvided:"Not provided",
+    sectionHotelsHotel:"Hotel",
+    sectionHotelsNights:"Nights",
+    briefRoute:"Route / Location",
+    briefActivity:"Activities & Transport",
+    chips:{flight:"Flight",hotel:"Hotel",transfer:"Transfer",cruise:"Cruise"},
+    blockDetails:"Details",
+    blockTransfer:"Transfer Info"
+  },
+  vi:{
+    title: tripData.meta.title.vi,
+    subtitle: tripData.meta.subtitle.vi,
+    quickAccess:"Truy cập nhanh",
+    jumpPlaceholder:"Nhảy đến Ngày…",
+    offlineNoteShort:"Dùng offline",
+    offlineNote:"Không cần kết nối mạng — hoạt động offline.",
+    hotelsTitle:"Khách sạn",
+    briefTitle:"Lịch trình tóm tắt",
+    daysTitle:"Theo từng ngày",
+    fromSource:"Từ nguồn",
+    tapToExpand:"Nhấn để mở rộng",
+    today:"Hôm nay",
+    searchTitle:"Tìm kiếm",
+    close:"Đóng",
+    searchHint:"Tìm trong toàn bộ nội dung lịch trình.",
+    searchFooter:"Gợi ý: dùng từ khóa ngắn như số chuyến bay (VN1563) hoặc tên địa điểm.",
+    missingInPDF:"(missing in PDF)",
+    notProvided:"Không có trong PDF",
+    sectionHotelsHotel:"Khách sạn",
+    sectionHotelsNights:"Số đêm",
+    briefRoute:"Lộ trình / Địa điểm",
+    briefActivity:"Hoạt động chính & Phương tiện",
+    chips:{flight:"Chuyến bay",hotel:"Khách sạn",transfer:"Di chuyển",cruise:"Du thuyền"},
+    blockDetails:"Chi tiết",
+    blockTransfer:"Chi tiết di chuyển"
+  }
+};
+
+let LANG = "en";
+
+/* ─── Helpers ────────────────────────────────────── */
+function esc(str){ return (str??"").replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function parseISO(d){ const [y,m,dd]=d.split("-").map(Number); return new Date(y,m-1,dd); }
+function isSameDate(a,b){ return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate(); }
+function chipTypes(day){
+  const t=(day.destination.en+"\n"+day.details.en+"\n"+day.transfer.en).toLowerCase();
+  const c=[];
+  if(t.includes("flight")||t.includes("#vn"))c.push("flight");
+  if(t.includes("overnight")||t.includes("hotel")||t.includes("resort"))c.push("hotel");
+  if(t.includes("pick up")||t.includes("transfer"))c.push("transfer");
+  if(t.includes("cruise")||t.includes("on board")||t.includes("du thuyền"))c.push("cruise");
+  return [...new Set(c)];
+}
+const chipIcons = {
+  flight: `<svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 1 0 11 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5z"/></svg>`,
+  hotel:  `<svg viewBox="0 0 24 24"><path d="M19 2H5a2 2 0 0 0-2 2v17a1 1 0 0 0 1 1h4v-5h4v5h4V4h4v-2h-1zm-7 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0-4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm-4 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0-4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm8 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0-4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>`,
+  transfer:`<svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-8l-2.08-5.99zM6.5 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM5 11l1.5-4.5h11L19 11H5z"/></svg>`,
+  cruise: `<svg viewBox="0 0 24 24"><path d="M20 21c-1.39 0-2.78-.47-4-1.32-2.44 1.71-5.56 1.71-8 0C6.78 20.53 5.39 21 4 21H2v2h2c1.38 0 2.74-.35 4-.99 2.52 1.29 5.48 1.29 8 0 1.26.65 2.62.99 4 .99h2v-2h-2zm-9-4l-5-3v-6h3V5h4v3h3l-5 9z"/></svg>`
+};
+
+/* ─── Render ─────────────────────────────────────── */
+function setLang(lang){
+  LANG = lang;
+  document.getElementById("btnEN").classList.toggle("active",lang==="en");
+  document.getElementById("btnVI").classList.toggle("active",lang==="vi");
+  document.getElementById("btnEN").setAttribute("aria-selected",lang==="en");
+  document.getElementById("btnVI").setAttribute("aria-selected",lang==="vi");
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const k=el.getAttribute("data-i18n");
+    if(i18n[LANG][k]!==undefined) el.textContent=i18n[LANG][k];
+  });
+  renderJump(); renderHotels(); renderBrief(); renderDays(); applyTodayHighlight();
+  const inp=document.getElementById("searchInput");
+  inp.placeholder=LANG==="en"?"Search…":"Tìm kiếm…";
+  document.getElementById("searchResults").innerHTML="";
+  inp.value="";
+}
+
+function renderJump(){
+  const sel=document.getElementById("jumpSelect");
+  sel.innerHTML=`<option value="">${esc(i18n[LANG].jumpPlaceholder)}</option>`;
+  tripData.days.forEach(d=>{
+    const date=tripData.brief[parseInt(d.day,10)-1]?.date?.[LANG]??"";
+    const o=document.createElement("option");
+    o.value=d.id;
+    o.textContent=(LANG==="en"?`Day ${d.day}`:`Ngày ${d.day}`)+(date?` — ${date}`:"");
+    sel.appendChild(o);
+  });
+}
+
+function renderHotels(){
+  const wrap=document.getElementById("hotelsList");
+  wrap.innerHTML="";
+  tripData.hotels.forEach((h,i)=>{
+    const city=h.city[LANG]||"";
+    const hotel=h.hotel[LANG]?.trim()||"";
+    const nights=h.nights[LANG]||"";
+    const url=h.url||"";
+    const hotelLink=url?`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(hotel)}</a>`:`<span>${esc(hotel)}</span>`;
+    const card=document.createElement("div");
+    card.className="hotel-card";
+    card.innerHTML=`
+      <div class="hotel-num">Hotel ${String(i+1).padStart(2,"0")}</div>
+      <div class="hotel-city">${esc(city)}</div>
+      <div class="hotel-name">${hotelLink}</div>
+      <div class="hotel-nights">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm1 11H7v-2h4V7h2v6z"/></svg>
+        ${esc(nights)} ${LANG==="en"?(parseInt(nights)===1?"night":"nights"):"đêm"}
+      </div>`;
+    wrap.appendChild(card);
+  });
+}
+
+function renderBrief(){
+  const wrap=document.getElementById("briefList");
+  wrap.innerHTML="";
+  tripData.brief.forEach(b=>{
+    const card=document.createElement("div");
+    card.className="brief-card";
+    card.innerHTML=`
+      <div class="brief-day-num">${esc(b.day)}</div>
+      <div class="brief-body">
+        <div class="brief-date">${esc(b.date[LANG]||"")}</div>
+        <div class="brief-route">${esc(b.route[LANG]||i18n[LANG].notProvided)}</div>
+        <div class="brief-activity">${esc(b.activity[LANG]||i18n[LANG].notProvided)}</div>
+      </div>`;
+    wrap.appendChild(card);
+  });
+}
+
+function renderDays(){
+  const wrap=document.getElementById("dayCards");
+  wrap.innerHTML="";
+  tripData.days.forEach(d=>{
+    const dateStr=tripData.brief[parseInt(d.day,10)-1]?.date?.[LANG]??"";
+    const subRoute=tripData.brief[parseInt(d.day,10)-1]?.route?.[LANG]??"";
+    const dest=d.destination[LANG]||i18n[LANG].notProvided;
+    const chips=chipTypes(d);
+    const chipsHTML=chips.length?`<div class="day-chips">${chips.map(c=>`<span class="chip">${chipIcons[c]||""}${esc(i18n[LANG].chips[c])}</span>`).join("")}</div>`:"";
+    const el=document.createElement("div");
+    el.className="day-card";
+    el.id=d.id;
+    el.setAttribute("data-iso",d.iso);
+    el.setAttribute("data-search-en",(d.destination.en+"\n"+d.details.en+"\n"+d.transfer.en).toLowerCase());
+    el.setAttribute("data-search-vi",(d.destination.vi+"\n"+d.details.vi+"\n"+d.transfer.vi).toLowerCase());
+    el.innerHTML=`
+      <div class="day-header" onclick="toggleDay('${d.id}')">
+        <div class="day-left">
+          <div class="day-num-row">
+            <span class="day-num">${LANG==="en"?`Day ${d.day}`:`Ngày ${d.day}`}</span>
+            <span class="day-date-badge">${esc(dateStr)}</span>
+            <span class="today-badge" id="${d.id}-today">${esc(i18n[LANG].today)}</span>
+          </div>
+          <div class="day-destination">${esc(dest)}</div>
+          ${subRoute?`<span class="day-route-badge">${esc(subRoute)}</span>`:""}
+          ${chipsHTML}
+        </div>
+        <div class="day-chevron">
+          <svg viewBox="0 0 24 24"><path d="M12 16a1 1 0 0 1-.707-.293l-6-6a1 1 0 0 1 1.414-1.414L12 13.586l5.293-5.293a1 1 0 1 1 1.414 1.414l-6 6A1 1 0 0 1 12 16z"/></svg>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="detail-block">
+          <div class="detail-label">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            ${esc(i18n[LANG].blockDetails)}
+          </div>
+          <div class="detail-text">${esc(d.details[LANG]||i18n[LANG].notProvided)}</div>
+        </div>
+        <div class="detail-block">
+          <div class="detail-label">
+            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-8l-2.08-5.99zM6.5 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+            ${esc(i18n[LANG].blockTransfer)}
+          </div>
+          <div class="detail-text">${esc(d.transfer[LANG]||i18n[LANG].notProvided)}</div>
+        </div>
+      </div>`;
+    wrap.appendChild(el);
+  });
+}
+
+function toggleDay(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const wasOpen=el.classList.contains("open");
+  el.classList.toggle("open");
+}
+
+function jumpToDay(id){
+  if(!id)return;
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.classList.add("open");
+  setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),50);
+}
+
+function applyTodayHighlight(){
+  const start=parseISO(tripData.meta.dateRangeISO.start);
+  const end=parseISO(tripData.meta.dateRangeISO.end);
+  const now=new Date();
+  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const inRange=today>=start&&today<=end;
+  const wrap=document.getElementById("todayBadgeWrap");
+  wrap.innerHTML="";
+  const progressWrap=document.getElementById("tripProgressWrap");
+
+  if(inRange){
+    const b=document.createElement("span");
+    b.className="badge today-active";
+    b.textContent=i18n[LANG].today;
+    wrap.appendChild(b);
+
+    // Show trip progress
+    const totalDays=tripData.days.length;
+    const elapsed=Math.max(0,Math.floor((today-start)/(1000*60*60*24)));
+    const pct=Math.min(100,Math.round((elapsed/totalDays)*100));
+    progressWrap.style.display="block";
+    progressWrap.innerHTML=`
+      <div class="trip-progress">
+        <div class="progress-header">
+          <span class="progress-label">${LANG==="en"?"Trip progress":"Tiến độ chuyến đi"}</span>
+          <span class="progress-count">${LANG==="en"?`Day ${elapsed+1} of ${totalDays}`:`Ngày ${elapsed+1}/${totalDays}`}</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div class="progress-dots">
+          <span class="progress-dot">${tripData.meta.dateRangeISO.start}</span>
+          <span class="progress-dot">${pct}%</span>
+          <span class="progress-dot">${tripData.meta.dateRangeISO.end}</span>
+        </div>
+      </div>`;
+    setTimeout(()=>{
+      const fill=progressWrap.querySelector(".progress-fill");
+      if(fill){fill.style.width="0%";requestAnimationFrame(()=>{requestAnimationFrame(()=>{fill.style.width=pct+"%";})});}
+    },100);
+  } else {
+    progressWrap.style.display="none";
+  }
+
+  tripData.days.forEach(d=>{
+    const el=document.getElementById(d.id);
+    if(!el)return;
+    const tag=document.getElementById(d.id+"-today");
+    if(isSameDate(today,parseISO(d.iso))&&inRange){
+      if(tag){tag.className="today-badge visible";tag.textContent=i18n[LANG].today;}
+      el.classList.add("today-card","open");
+    } else {
+      if(tag){tag.className="today-badge";}
+      el.classList.remove("today-card");
+    }
+  });
+}
+
+/* ─── Search ─────────────────────────────────────── */
+function openSearch(){
+  const m=document.getElementById("searchModal");
+  m.classList.add("open");
+  const inp=document.getElementById("searchInput");
+  inp.value="";
+  document.getElementById("searchResults").innerHTML="";
+  setTimeout(()=>inp.focus(),80);
+}
+function closeSearch(){ document.getElementById("searchModal").classList.remove("open"); }
+function runSearch(q){
+  const out=document.getElementById("searchResults");
+  out.innerHTML="";
+  const query=(q||"").trim().toLowerCase();
+  if(!query){
+    out.innerHTML=`<div class="search-empty">${esc(LANG==="en"?"Type to search…":"Nhập để tìm…")}</div>`;
+    return;
+  }
+  const key=LANG==="en"?"data-search-en":"data-search-vi";
+  const results=[];
+  tripData.days.forEach(d=>{
+    const el=document.getElementById(d.id);
+    if(!el)return;
+    const hay=el.getAttribute(key)||"";
+    if(hay.indexOf(query)!==-1){
+      const raw=LANG==="en"?(d.destination.en+"\n"+d.details.en):(d.destination.vi+"\n"+d.details.vi);
+      const low=raw.toLowerCase();
+      const i=low.indexOf(query);
+      let snippet=raw;
+      if(i!==-1){
+        const s=Math.max(0,i-80),e=Math.min(raw.length,i+query.length+120);
+        snippet=(s>0?"…":"")+raw.slice(s,e)+(e<raw.length?"…":"");
+      }else{ snippet=raw.slice(0,200)+(raw.length>200?"…":""); }
+      const date=tripData.brief[parseInt(d.day,10)-1]?.date?.[LANG]??"";
+      results.push({id:d.id,day:d.day,date,snippet});
+    }
+  });
+  if(!results.length){
+    out.innerHTML=`<div class="search-empty">${esc(LANG==="en"?"No matches found.":"Không tìm thấy.")}</div>`;
+    return;
+  }
+  results.forEach(r=>{
+    const div=document.createElement("div");
+    div.className="search-result-item";
+    div.innerHTML=`
+      <div class="search-result-day">${esc((LANG==="en"?"Day ":"Ngày ")+r.day)} — ${esc(r.date)}</div>
+      <div class="search-result-snippet">${esc(r.snippet)}</div>
+      <a class="search-result-link" href="javascript:void(0)" onclick="jumpFromSearch('${r.id}')">${esc(LANG==="en"?"Go to day":"Đi tới ngày")}</a>`;
+    out.appendChild(div);
+  });
+}
+function jumpFromSearch(id){ closeSearch(); jumpToDay(id); }
+
+document.getElementById("searchModal").addEventListener("click",e=>{
+  if(e.target.id==="searchModal") closeSearch();
+});
+document.getElementById("searchInput").addEventListener("input",e=>runSearch(e.target.value));
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeSearch(); });
+
+/* ─── Init ───────────────────────────────────────── */
+setLang("en");
+</script>
+</body>
+</html>
+
+
+
